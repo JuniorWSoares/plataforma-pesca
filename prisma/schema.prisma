@@ -1,0 +1,40 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String
+  role         String         // Iniciante, Entusiasta, Experiente (Público-alvo)
+  createdAt    DateTime       @default(now())
+  
+  // Relacionamento: Um usuário pode ter muitos lugares favoritos
+  favoriteSpots FavoriteSpot[]
+}
+
+model FavoriteSpot {
+  id        String   @id @default(uuid())
+  name      String   // Nome que o usuário deu ao lugar (ex: "Barragem do Rio X")
+  latitude  Float
+  longitude Float
+  createdAt DateTime @default(now())
+
+  // Chave estrangeira para o Usuário
+  userId    String
+  user      User     @relation(fields: [userId], references: id, onDelete: Cascade)
+}
+
+model Species {
+  id             String   @id @default(uuid())
+  popularName    String
+  scientificName String
+  description    String
+  bestBaits      String[] // Array de strings com as melhores iscas
+  imageUrl       String   // Link da foto do peixe
+}
