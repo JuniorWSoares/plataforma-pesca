@@ -7,9 +7,10 @@
   },
   "name": "plataforma-pesca",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
-    "@prisma/client": "^7.8.0",
+    "@prisma/client": "^6.19.3",
     "esbuild": "^0.28.1",
     "undici-types": "^8.3.0"
   },
@@ -19,5 +20,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
 }
